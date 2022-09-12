@@ -1,27 +1,38 @@
 <template>
-  <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <div :class="`container-item`"  v-for="item in data" :key="item.title" @click.stop="showChildrenFn(item)">
+      <h1>{{item.title}}</h1>
+      <!-- <div :style="{backgroundColor: coloring()}" style="margin-top:300px;" v-for="i in item.children" :key="i.index"></div> -->
+    </div>
+  </div>
+  <div class="child-container">
+    <template  v-for="item in data" :key="item.title" @click.stop="showChildrenFn(item)">
+      <child :dataObj="item.children"  v-if="item.title === showChildren"/>
+    </template>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { data } from './components/index'
+import child from './components/child.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+const showChildren = ref<string>('')
+  const showChildrenFn = (item:any) => {
+    showChildren.value = item.title
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss" scoped>
+.container {
+  background-color: pink;
+  display: flex;
+  .container-item {
+    position: relative;
+    width:200px;
+    height: 200px;
+    margin-right: 100px;
+    background-color: green;
+  }
 }
 </style>

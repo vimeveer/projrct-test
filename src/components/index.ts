@@ -1,4 +1,4 @@
-const data =  [
+export const data =  [
   {
     title: '第一层a',
     index:1,
@@ -60,4 +60,4 @@ const data =  [
     }
     ]
   }
-  ]
+]
